@@ -1,11 +1,20 @@
-#sos {
-  width: 200px;
-  height: 200px;
-  margin: 0;
+#gate {
+  cursor: pointer;
+  margin-bottom: 100px;
+  width: 83px;
+  height: 46px;
+}
+
+#ball {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+}
+
+.droppable {
   position: absolute;
   top: 50%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  text-align: center;
 }
