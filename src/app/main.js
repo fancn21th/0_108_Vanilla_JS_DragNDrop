@@ -1,34 +1,36 @@
 var ball = document.getElementById("ball");
 
 ball.onmousedown = function(event) {
-  // (1) start the process
+  let shiftX = event.clientX - ball.getBoundingClientRect().left;
+  let shiftY = event.clientY - ball.getBoundingClientRect().top;
 
-  // (2) prepare to moving: make absolute and on top by z-index
   ball.style.position = "absolute";
   ball.style.zIndex = 1000;
-  // move it out of any current parents directly into body
-  // to make it positioned relative to the body
   document.body.append(ball);
-  // ...and put that absolutely positioned ball under the pointer
 
   moveAt(event.pageX, event.pageY);
 
-  // centers the ball at (pageX, pageY) coordinates
+  // moves the ball at (pageX, pageY) coordinates
+  // taking initial shifts into account
   function moveAt(pageX, pageY) {
-    ball.style.left = pageX - ball.offsetWidth / 2 + "px";
-    ball.style.top = pageY - ball.offsetHeight / 2 + "px";
+    ball.style.left = pageX - shiftX + "px";
+    ball.style.top = pageY - shiftY + "px";
   }
 
   function onMouseMove(event) {
     moveAt(event.pageX, event.pageY);
   }
 
-  // (3) move the ball on mousemove
+  // move the ball on mousemove
   document.addEventListener("mousemove", onMouseMove);
 
-  // (4) drop the ball, remove unneeded handlers
+  // drop the ball, remove unneeded handlers
   ball.onmouseup = function() {
     document.removeEventListener("mousemove", onMouseMove);
     ball.onmouseup = null;
   };
+};
+
+ball.ondragstart = function() {
+  return false;
 };
